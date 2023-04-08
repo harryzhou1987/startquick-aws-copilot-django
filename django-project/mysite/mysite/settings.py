@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import pymysql
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +27,9 @@ SECRET_KEY = 'django-insecure-uyn33pq#v7be3za-cc1)+g)*q1xinhme9oq8k%=8ri16r4@i)l
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+hostname = socket.gethostname()
+ip_address = socket.gethostbyname(hostname)
 
 ALLOWED_HOSTS = []
 
@@ -73,13 +79,26 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+pymysql.install_as_MySQLdb()
+pymysql.version_info = (2, 1, 1, "final", 0)
+
+DB_HOST = socket.gethostbyname(os.environ['DB_HOST'])
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': DB_HOST,
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
