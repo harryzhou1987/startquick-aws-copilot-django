@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  django:
+    container_name: django
+    image: django-site-image
+    depends_on:
+      mysql:
+        condition: service_healthy
+    build:
+      context: .
+    volumes:
+      - ./django-project/mysite:/usr/src/app
+    ports:
+      - 8080:80
+    restart: unless-stopped
+    healthcheck:
+      test: curl -f http://localhost/ || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    environment:
+      DB_HOST: mysql
+      DB_NAME: djangodb
+      DB_USER: dbuser
+      DB_PASSWORD: SecretPassword
+      ALLOWEDSOURCE: 0.0.0.0
+      DEBUG: true
+
+  mysql:
+    container_name: django-mysql
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: SuperPassword123456!
+      MYSQL_DATABASE: djangodb
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: SecretPassword
+    healthcheck:
+      test: [ 'CMD', 'mysqladmin', 'ping', '-h', 'localhost' ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - django_db_data:/var/lib/mysql
+
+volumes:
+  django_db_data:
