@@ -26,7 +26,7 @@ network:
 http:
   public:
     certificates:
-      - arn:aws:acm:ap-southeast-2:334647990189:certificate/e2aa078c-8c47-4092-909a-91152ecd96dc
+      - [ARN for your SSL Certificate requested on AWS]
 #   private:
 
 # Configure observability for your environment resources.

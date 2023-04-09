@@ -25,7 +25,7 @@ image:
     interval: 30s
     timeout: 5s
     retries: 5
-    
+
 cpu: 256       # Number of CPU units for the task.
 memory: 512    # Amount of memory in MiB used by the task.
 platform: linux/x86_64  # See https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/#platform
@@ -41,7 +41,7 @@ network:
 #
 variables:                    # Pass environment variables as key value pairs.
  LOG_LEVEL: info
- DB_HOST: django-db-mysql.crn3ikijwzoy.ap-southeast-2.rds.amazonaws.com
+ DB_HOST: [Your RDS Instance Endpoint]
  DB_NAME: djangodb
  DB_USER: dbuser
  DB_PASSWORD: SecretPassword
@@ -63,8 +63,8 @@ environments:
    http:
     redirect_to_https: true
     alias:
-     - name: "www.cloudcracker.click"
-       hosted_zone: Z05457382U0457Q233EY5
+     - name: "[Your Domain Name]"
+       hosted_zone: ["Your Hosted Zone"]
     healthcheck: # For Target Group Health Check
       path: "/"
       port: 80
