@@ -31,7 +31,11 @@ DEBUG = True
 hostname = socket.gethostname()
 ip_address = socket.gethostbyname(hostname)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    ip_address,
+    'localhost',
+    'www.cloudcracker.click'
+]
 
 
 # Application definition
