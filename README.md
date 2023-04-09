@@ -12,12 +12,16 @@ Follow the video to understand more about how AWS copilot works.
 ```
 git clone -b django-start https://github.com/harryzhou1987/startquick-aws-copilot-django.git
 ```
-2. Run Docker Compose to set up a local development environment
+2. Replace Django Secret Key in [settings.py](django-project/mysite/mysite/settings.py) file.
+```python
+SECRET_KEY = '[You Own Django Secret]'
+```
+3. Run Docker Compose to set up a local development environment
 ```
 cd startquick-aws-copilot-django
 docker compose up -d --build
 ```
-3. Go to http://localhost:8080 in your web browser and check if the local environment is up.
+4. Go to http://localhost:8080 in your web browser and check if the local environment is up.
 
 ## Set up and Deploy the containerized service on AWS Fargate using AWS Copilot
 1. Initialize an App.
