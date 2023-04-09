@@ -15,7 +15,7 @@ source:
   provider: GitHub
   # Additional properties that further specify the location of the artifacts.
   properties:
-    branch: django-start
+    branch: develop
     repository: https://github.com/harryzhou1987/startquick-aws-copilot-django
     # Optional: specify the name of an existing CodeStar Connections connection.
     # connection_name: a-connection
